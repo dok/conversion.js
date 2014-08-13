@@ -3,13 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "keywords": [
-      "conversion",
-      "parse",
-      "format",
-      "imperial",
-      "metrics"
+    "conversion",
+    "parse",
+    "format",
+    "imperial",
+    "metrics"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "chai": "~1.9.1"
+  },
   "devDependencies": {
     "mocha": "latest"
   },

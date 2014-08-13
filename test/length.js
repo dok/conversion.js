@@ -1,12 +1,31 @@
-var assert = require('assert');
-var expect = require('expect');
+var expect = require('chai').expect;
 
-describe('The tests for units of space', function () {
-  before(function () {
-    var convert = require('conversion.js');
-  });
+describe('Length', function () {
+  var convert = require('../conversion.js');
 
   it('exists', function () {
     expect(convert).to.be.a('function');
+  });
+
+  it('should convert from meters to meters', function () {
+    expect(convert(1, 'meters').toMeters()).to.equal(1);
+    expect(convert(2, 'meters').toMeters()).to.equal(2);
+  });
+
+  it('should convert from meters to centimeters', function () {
+    expect(convert(1, 'meters').toCentimeters()).to.equal(100);
+    expect(convert(3, 'meters').toCentimeters()).to.equal(300);
+  });
+
+  it('should convert from meters to kilometers', function () {
+    expect(convert(1, 'meters').toKilometers()).to.equal(.001);
+  });
+
+  it('should convert from meters to yards', function () {
+    expect(convert(1, 'meters').toYards()).to.equal(1.09361);
+  });
+
+  it('should convert from yards to meters', function () {
+    expect(convert(1, 'yards').toMeters()).to.equal(.9144);
   });
 });
