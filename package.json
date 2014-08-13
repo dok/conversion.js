@@ -1,0 +1,19 @@
+{
+  "name": "conversion",
+  "private": true,
+  "version": "0.0.0",
+  "keywords": [
+      "conversion",
+      "parse",
+      "format",
+      "imperial",
+      "metrics"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "latest"
+  },
+  "scripts": {
+    "test": "mocha test"
+  }
+}
