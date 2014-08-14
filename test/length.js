@@ -22,7 +22,11 @@ describe('Length', function () {
   });
 
   it('should convert from meters to yards', function () {
-    expect(convert(1, 'meters').toYards()).to.equal(1.09361);
+    expect(convert(1, 'meters').toYards()).to.equal(1.0936132983377078);
+  });
+
+  it('should convert from meters to inches', function () {
+    expect(convert(1, 'meters').toInches()).to.equal(39.37007874015748);
   });
 
   it('should convert from yards to meters', function () {

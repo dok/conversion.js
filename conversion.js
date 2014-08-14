@@ -48,6 +48,10 @@
       },
       helpers = {};
 
+  var initialize = function() {
+    buildLengthFunctions();
+  };
+
   /**
    * Non-pseudoclassical instantiation of conversion
    * @param {[integer]} value  [the value that is being converted]
@@ -67,11 +71,11 @@
     }
   }
 
-  !(function() {
+  var buildLengthFunctions = function() {
     var obj = {};
     for(var item in LENGTH) {
       console.log(item, LENGTH[item]);
-      var methodName = 'to' + item[0].toUpperCase() + item.substring(1) + 's';
+      var methodName = helpers.makeMethodName(item);
       Conversion.prototype[methodName] = function() {
         var name = item;
         return function() {
@@ -79,19 +83,7 @@
         }
       }();
     }
-  })();
-
-  // Conversion.prototype.toMeters = function () {
-  //   return this.value * LENGTH[this.suffix] / LENGTH.meter;
-  // };
-
-  // Conversion.prototype.toCentimeters = function () {
-  //   return this.value * LENGTH[this.suffix] / LENGTH.centimeter;
-  // };
-
-  // Conversion.prototype.toKilometers = function () {
-  //   return this.value * LENGTH[this.suffix] / LENGTH.kilometer;
-  // };
+  };
 
   /**
    * Helpers
@@ -102,9 +94,29 @@
     * @param  {[string]} suffix [the suffix to be normalized]
     * @return {[string]}        [returns the LENGTH table compatible string]
     */
-   helpers.normalize = function(suffix) {
+  helpers.normalize = function (suffix) {
     return suffix.toLowerCase().replace(/s$/i, '');
-   };
+  };
+
+  /**
+   * Most nouns can be made plural by adding an -s to the end of the word. However, there are times when you need to add -es instead. If the word ends in "s", "x", "ch", or "sh", then you must use -es in order to spell the word correctly.
+   */
+  helpers.makeMethodName = function (original) {
+    var items = original.split('-');
+    var name = 'to';
+    var edgeCases = [['s', 'x'],['ch', 'sh']];
+    items.forEach(function(value) {
+      name += value[0].toUpperCase() + value.substring(1);
+    });
+
+    if(~edgeCases[0].indexOf(name.slice(-1)) || ~edgeCases[1].indexOf(name.slice(-2))) {
+      return name += 'es';
+    } else {
+      return name += 's';
+    }
+  };
+
+  initialize();
 
   // CommonJS module is defined
   if (hasModule) {
