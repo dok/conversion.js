@@ -10,10 +10,10 @@
     "metrics"
   ],
   "dependencies": {
-    "chai": "~1.9.1"
   },
   "devDependencies": {
-    "mocha": "latest"
+    "mocha": "latest",
+    "chai": "~1.9.1"
   },
   "scripts": {
     "test": "mocha test"

@@ -11,12 +11,15 @@
   var conversion,
       VERSION = '0.0.1',
       hasModule = (typeof module !== 'undefined' && module.exports),
-      TEMPERATURE = { // based in celsius
+      conversions = [],
+      helpers = {};
+
+      conversions.push({ // TEMPERATURE based in celsius
         'celsius': 1.0,
         'fahrenheit': -17.7778,
         'kelvin': -273.15
-      },
-      LENGTH = { // based in meter
+      });
+      conversions.push({ // LENGTH based in meter
         'kilometer': 1000.0,
         'meter': 1.0,
         'centimeter': 0.01,
@@ -26,8 +29,8 @@
         'inch': 0.0254,
         'foot': 0.3048,
         'nautical-mile': 1852
-      },
-      MASS = {  // based in kilogram
+      });
+      conversions.push({  // MASS based in kilogram
         'metric-ton': 1000,
         'kilogram': 1,
         'gram': 0.001,
@@ -38,15 +41,14 @@
         'stone': 6.35029,
         'pound': 0.453592,
         'ounce': 0.0283495
-      },
-      SPEED = { // based in meters/sec
-        'miles-per-hour': 0.44704,
-        'feet-per-second': 0.3048,
-        'meters-per-second': 1,
-        'kilometers-per-hour': 0.277778,
+      });
+      conversions.push({ // SPEED based in meters/sec
+        'mph': 0.44704,
+        'fps': 0.3048,
+        'mps': 1,
+        'kph': 0.277778,
         'knot': 0.514444
-      },
-      helpers = {};
+      });
 
   var initialize = function() {
     buildLengthFunctions();
@@ -71,17 +73,29 @@
     }
   }
 
+  /**
+   * Holy mother of function builders
+   * @return {undefined}
+   */
   var buildLengthFunctions = function() {
     var obj = {};
-    for(var item in LENGTH) {
-      console.log(item, LENGTH[item]);
-      var methodName = helpers.makeMethodName(item);
-      Conversion.prototype[methodName] = function() {
-        var name = item;
-        return function() {
-          return this.value * LENGTH[this.suffix] / LENGTH[name];
+    var isSpeed;
+    for(var i = 0; i < conversions.length; i++) {
+      for(var item in conversions[i]) {
+        if(i === 3) {
+          isSpeed = true;
+        } else {
+          isSpeed = false;
         }
-      }();
+        var methodName = helpers.makeMethodName(item, isSpeed);
+        Conversion.prototype[methodName] = function() {
+          var name = item;
+          var topicIndex = i;
+          return function() {
+            return this.value * conversions[topicIndex][this.suffix] / conversions[topicIndex][name];
+          }
+        }();
+      }
     }
   };
 
@@ -95,24 +109,30 @@
     * @return {[string]}        [returns the LENGTH table compatible string]
     */
   helpers.normalize = function (suffix) {
+    if(suffix.length < 4) {
+      return suffix.toLowerCase();
+    }
     return suffix.toLowerCase().replace(/s$/i, '');
   };
 
   /**
    * Most nouns can be made plural by adding an -s to the end of the word. However, there are times when you need to add -es instead. If the word ends in "s", "x", "ch", or "sh", then you must use -es in order to spell the word correctly.
    */
-  helpers.makeMethodName = function (original) {
+  helpers.makeMethodName = function (original, isSpeed) {
     var items = original.split('-');
     var name = 'to';
     var edgeCases = [['s', 'x'],['ch', 'sh']];
     items.forEach(function(value) {
       name += value[0].toUpperCase() + value.substring(1);
     });
-
-    if(~edgeCases[0].indexOf(name.slice(-1)) || ~edgeCases[1].indexOf(name.slice(-2))) {
-      return name += 'es';
+    if (isSpeed) {
+      return name;
     } else {
-      return name += 's';
+      if(~edgeCases[0].indexOf(name.slice(-1)) || ~edgeCases[1].indexOf(name.slice(-2))) {
+        return name += 'es';
+      } else {
+        return name += 's';
+      }
     }
   };
 
