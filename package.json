@@ -1,13 +1,16 @@
 {
-  "name": "conversion",
+  "name": "conversion.js",
+  "author": "Sean Dokko",
+  "email": "dokko1230@gmail.com",
   "private": false,
   "version": "0.0.0",
   "keywords": [
     "conversion",
-    "parse",
-    "format",
-    "imperial",
-    "metrics"
+    "temperature",
+    "mass",
+    "speed",
+    "weight",
+    "imperial"
   ],
   "dependencies": {
   },
