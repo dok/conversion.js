@@ -6,6 +6,10 @@ Note: The numbers are rounded up to the nearest 4th decimal point
 
 ## Usage
 ```js
+
+var convert = require('conversion.js');
+// or load a script tag if using in the client
+
 convert(1, 'mps').toKph();
 convert(2, 'kilograms').toMetricTons()
 convert(2, 'yards').toCentimeters()
