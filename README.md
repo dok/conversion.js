@@ -7,7 +7,9 @@ Note: The numbers are rounded up to the nearest 4th decimal point
 ## Usage
 
 Install using bower or npm:
+
 bower install conversion.js
+
 npm install conversion.js
 
 ```js
