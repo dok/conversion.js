@@ -1,6 +1,6 @@
 {
-  "name": "conversion",
-  "private": true,
+  "name": "Conversion.js",
+  "private": false,
   "dependencies": {
     "chai": "~1.8.0",
     "mocha": "~1.14.0"

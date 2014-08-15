@@ -12,6 +12,8 @@
   "dependencies": {
   },
   "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-uglify": "latest",
     "mocha": "latest",
     "chai": "~1.9.1"
   },

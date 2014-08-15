@@ -159,6 +159,6 @@
   if (hasModule) {
     module.exports = conversion;
   } else {
-    this.convert = convert;
+    window.convert = conversion;
   }
 })();
