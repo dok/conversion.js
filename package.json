@@ -2,8 +2,9 @@
   "name": "conversion.js",
   "author": "Sean Dokko",
   "email": "dokko1230@gmail.com",
+  "description": "Simple lightweight conversion library for temperature, mass, speed, and length",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.4",
   "keywords": [
     "conversion",
     "temperature",
