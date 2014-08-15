@@ -28,6 +28,7 @@
         'yard': 0.9144,
         'inch': 0.0254,
         'foot': 0.3048,
+        'feet': 0.3048,
         'nautical-mile': 1852
       });
       conversions.push({  // MASS based in kilogram
@@ -92,7 +93,7 @@
           var name = item;
           var topicIndex = i;
           return function() {
-            return this.value * conversions[topicIndex][this.suffix] / conversions[topicIndex][name];
+            return Number((this.value * conversions[topicIndex][this.suffix] / conversions[topicIndex][name]).toFixed(4));
           }
         }();
       }
@@ -115,6 +116,14 @@
     return suffix.toLowerCase().replace(/s$/i, '');
   };
 
+  helpers.handleUnique = function(original) {
+    if(original === 'foot') {
+      return 'toFeet';
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Most nouns can be made plural by adding an -s to the end of the word. However, there are times when you need to add -es instead. If the word ends in "s", "x", "ch", or "sh", then you must use -es in order to spell the word correctly.
    */
@@ -122,9 +131,17 @@
     var items = original.split('-');
     var name = 'to';
     var edgeCases = [['s', 'x'],['ch', 'sh']];
+
+    var isUnique = helpers.handleUnique(original);
+    if(isUnique) {
+      return isUnique;
+    }
+
     items.forEach(function(value) {
       name += value[0].toUpperCase() + value.substring(1);
     });
+
+    //TODO: Foot to Feet
     if (isSpeed) {
       return name;
     } else {
@@ -141,5 +158,7 @@
   // CommonJS module is defined
   if (hasModule) {
     module.exports = conversion;
+  } else {
+    this.convert = convert;
   }
 })();
