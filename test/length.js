@@ -22,14 +22,22 @@ describe('Length', function () {
   });
 
   it('should convert from meters to yards', function () {
-    expect(convert(1, 'meters').toYards()).to.equal(1.0936132983377078);
+    expect(convert(1, 'meters').toYards()).to.equal(1.0936);
   });
 
   it('should convert from meters to inches', function () {
-    expect(convert(1, 'meters').toInches()).to.equal(39.37007874015748);
+    expect(convert(1, 'meters').toInches()).to.equal(39.3701);
   });
 
   it('should convert from yards to meters', function () {
     expect(convert(1, 'yards').toMeters()).to.equal(.9144);
+  });
+
+  it('should convert from yard to feet', function () {
+    expect(convert(1, 'yards').toFeet()).to.equal(3);
+  });
+
+  it('should convert from feet to yards', function () {
+    expect(convert(3, 'feet').toYards()).to.equal(1);
   });
 });

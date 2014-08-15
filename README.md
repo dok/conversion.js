@@ -2,6 +2,8 @@
 
 A lightweight javascript conversion library for translating temperature, speed, mass and length values.
 
+Note: The numbers are rounded up to the nearest 4th decimal point
+
 ## Usage
 ```js
 convert(1, 'mps').toKph();
