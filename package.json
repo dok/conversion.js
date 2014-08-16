@@ -5,6 +5,7 @@
   "description": "Simple lightweight conversion library for temperature, mass, speed, and length",
   "private": false,
   "version": "0.0.4",
+  "main": "conversion.js",
   "keywords": [
     "conversion",
     "temperature",
