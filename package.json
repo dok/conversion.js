@@ -4,7 +4,7 @@
   "email": "dokko1230@gmail.com",
   "description": "Simple lightweight conversion library for temperature, mass, speed, and length",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "conversion.js",
   "keywords": [
     "conversion",

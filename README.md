@@ -19,7 +19,7 @@ var convert = require('conversion.js');
 
 convert(1, 'mps').toKph();
 convert(2, 'kilograms').toMetricTons()
-convert(2, 'yards').toCentimeters()
+convert(2, 'yards', { precision: 2 }).toCentimeters()
 ```
 ## Api
 
@@ -59,6 +59,14 @@ convert(2, 'yards').toCentimeters()
 .toKph // To kilometers per hour
 .toKnot // To Knot
 
+```
+
+## Options
+
+```js
+{
+  precision: 4 // The decimal cutoff point at where it is rounded up
+}
 ```
 
 ## License

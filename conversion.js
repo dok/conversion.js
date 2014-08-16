@@ -9,9 +9,12 @@
   'use strict';
 
   var conversion,
-      VERSION = '0.0.1',
+      VERSION = '0.0.5',
       hasModule = (typeof module !== 'undefined' && module.exports),
       conversions = [],
+      defaults = {
+        precision: 4
+      },
       helpers = {};
 
       conversions.push({ // TEMPERATURE based in celsius
@@ -59,19 +62,22 @@
    * Non-pseudoclassical instantiation of conversion
    * @param {[integer]} value  [the value that is being converted]
    * @param {[string]} suffix [the suffix that is attached to the value. eg. 'km']
+   * @param {[object]} options  [the options object passed by the user]
    */
-  conversion = function (value, suffix) {
+  conversion = function (value, suffix, options) {
     var config = {};
     config.value = value;
     config.suffix = helpers.normalize(suffix);
-    
+    helpers.extend(config, defaults);
+    if (options) {
+      helpers.extend(config, options); // override defaults
+    }
+
     return new Conversion(config);
   };
 
   function Conversion(configs) {
-    for (var key in configs) {
-      this[key] = configs[key];
-    }
+    helpers.extend(this, configs);
   }
 
   /**
@@ -93,7 +99,7 @@
           var name = item;
           var topicIndex = i;
           return function() {
-            return Number((this.value * conversions[topicIndex][this.suffix] / conversions[topicIndex][name]).toFixed(4));
+            return Number((this.value * conversions[topicIndex][this.suffix] / conversions[topicIndex][name]).toFixed(this.precision));
           }
         }();
       }
@@ -122,7 +128,25 @@
     } else {
       return false;
     }
-  }
+  };
+
+  helpers.extend = function(a, b) {
+    for (var i in b) {
+      if (b.hasOwnProperty(i)) {
+        a[i] = b[i];
+      }
+    }
+
+    if (b.hasOwnProperty('toString')) {
+      a.toString = b.toString;
+    }
+
+    if (b.hasOwnProperty('valueOf')) {
+      a.valueOf = b.valueOf;
+    }
+
+    return a;
+  };
 
   /**
    * Most nouns can be made plural by adding an -s to the end of the word. However, there are times when you need to add -es instead. If the word ends in "s", "x", "ch", or "sh", then you must use -es in order to spell the word correctly.
