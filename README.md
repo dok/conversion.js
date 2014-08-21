@@ -8,9 +8,15 @@ Note: The numbers are rounded up to the nearest 4th decimal point
 
 Install using bower or npm:
 
+```shell
 bower install conversion.js
+```
 
+```shell
 npm install conversion.js
+```
+
+Then load up a node console and try it out:
 
 ```js
 
