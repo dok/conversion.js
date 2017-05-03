@@ -1,5 +1,5 @@
 {
-  "name": "conversion.js",
+  "name": "unit-mutation",
   "author": "Sean Dokko",
   "email": "dokko1230@gmail.com",
   "description": "Simple lightweight conversion library for temperature, mass, speed, and length",
@@ -8,6 +8,7 @@
   "main": "conversion.js",
   "keywords": [
     "conversion",
+    "unit",
     "temperature",
     "mass",
     "speed",
